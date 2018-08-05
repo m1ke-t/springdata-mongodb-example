@@ -8,9 +8,6 @@ import org.springframework.data.mongodb.core.MongoOperations;
 
 import java.util.ArrayList;
 
-/**
- * Created by Mike S. on 05.08.2018.
- */
 public class BaseQueryTest {
     @Autowired
     protected BookRepository bookRepository;

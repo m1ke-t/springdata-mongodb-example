@@ -1,6 +1,3 @@
-/**
- * Created by Mike S. on 05.08.2018.
- */
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -10,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,6 +16,8 @@ public class JSONQueryTest extends BaseQueryTest {
 
     @Test
     public void givenBooksExist_whenFindingBooksByTitle_thenBooksAreFound() {
+        List<Book> users = bookRepository.findBooksByTitle("BookTitle1");
+        int size = users.size();
         Book book = new Book();
         book.setTitle("BookTitle1");
         book.setYear(1945);
@@ -29,9 +27,9 @@ public class JSONQueryTest extends BaseQueryTest {
         book.setTitle("BookTitle2");
         book.setYear(1955);
         mongoOps.insert(book);
+        users = bookRepository.findBooksByTitle("BookTitle1");
 
-        List<Book> users = bookRepository.findBooksByTitle("BookTitle1");
-        assertThat(users.size(), is(1));
+        assertThat(users.size(), is(size + 1));
     }
 
     @Test
@@ -98,4 +96,21 @@ public class JSONQueryTest extends BaseQueryTest {
 
         assertThat(books.size(), is(1));
     }
+
+    @Test
+    public void givenBooksExist_whenFindingBookWithAuthors_thenBooksAreFound() {
+        Book book = new Book();
+        book.setTitle("Title1");
+        book.setYear(1945);
+        book.setAuthors(authors);
+        mongoOps.insert(book);
+        book = new Book();
+        book.setTitle("Title2");
+        book.setYear(1955);
+        mongoOps.insert(book);
+        List<Book> books = bookRepository.findByAuthors(authors);
+        assertThat(books.size(), is(1));
+    }
+
+
 }

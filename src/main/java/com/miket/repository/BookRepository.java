@@ -1,9 +1,11 @@
 package com.miket.repository;
 
+import com.miket.model.Author;
 import com.miket.model.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface BookRepository extends MongoRepository<Book, String>{
@@ -25,6 +27,8 @@ public interface BookRepository extends MongoRepository<Book, String>{
     List<Book> findByTitleStartingWith(String regexp);
 
     List<Book> findByTitleEndingWith(String regexp);
+
+    List<Book> findByAuthors(ArrayList<Author> authors);
 
     @Query(value = "{}", fields = "{title : 1}")
     List<Book> findTitleAndId();

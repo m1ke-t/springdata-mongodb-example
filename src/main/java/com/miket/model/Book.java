@@ -11,11 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by Mike S. on 04.08.2018.
- */
 @Document
-@CompoundIndexes({ @CompoundIndex(name = "email_age", def = "{'email.id' : 1, 'age': 1}") })
+@CompoundIndexes({ @CompoundIndex(name = "title_year", def = "{'title' : 1, 'year': 1}") })
 public class Book {
     @Id
     private String id;
